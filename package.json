@@ -1,0 +1,19 @@
+{
+  "name": "onenet-nodejs-sdk",
+  "version": "1.0.0",
+  "description": "a node.js sdk for onenet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "onenet",
+    "nodejs"
+  ],
+  "author": "alex",
+  "license": "ISC",
+  "dependencies": {
+    "promise": "^8.0.0",
+    "request": "^2.81.0"
+  }
+}
