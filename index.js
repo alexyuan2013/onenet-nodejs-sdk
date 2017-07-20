@@ -1,6 +1,6 @@
 const OneNet = require('./onenet-sdk')
 
-var onenet = new OneNet('your-api-key', 'register-code')
+var onenet = new OneNet('M5qdbUhgEdP4qjUI8hJaNVYFH0A=', 'a4zm6aiWGPP6ONCV')
 
 // onenet.registerDevice({sn: '2015031401421', title: 'mydevice'}).then(function(res){
 //   console.log(res)
@@ -99,26 +99,26 @@ var onenet = new OneNet('your-api-key', 'register-code')
 //   console.log(err)
 // })
 
-// var points = {
-//   datastreams: [
-//     {
-//       id: 'GPSPOSITION',
-//       datapoints: [
-//         {
-//           value: '1,E11634.348383,N2242.334343'
-//         }
-//       ]
-//     }
-//   ]
-// }
-// onenet.addDataPoints('7503794', points).then(function(res){
-//   console.log(res)
-// }).catch(function(err){
-//   console.log(err)
-// })
-
-onenet.getDataPoints('8836458', '').then(function(res){
+var points = {
+  datastreams: [
+    {
+      id: 'GPSPOSITION',
+      datapoints: [
+        {
+          value: '1,E11332.348383,N2341.334343'
+        }
+      ]
+    }
+  ]
+}
+onenet.addDataPoints('8836458', points).then(function(res){
   console.log(res)
-},function(err){
+}).catch(function(err){
   console.log(err)
 })
+
+// onenet.getDataPoints('8836458', '').then(function(res){
+//   console.log(res)
+// },function(err){
+//   console.log(err)
+// })

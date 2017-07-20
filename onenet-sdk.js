@@ -19,7 +19,10 @@ var requestData = function(options) {
         if (res.statusCode >= 200 && res.statusCode < 300){
           resolve(body)
         } else {
-          reject('request params error')
+		  var result = {}
+		  result.errno = 500
+		  result.error = 'request params error'
+          reject(result)
         }
       }
     })
