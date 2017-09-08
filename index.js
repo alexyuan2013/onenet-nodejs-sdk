@@ -1,14 +1,14 @@
 const OneNet = require('./onenet-sdk')
 
-var onenet = new OneNet('M5qdbUhgEdP4qjUI8hJaNVYFH0A=', 'a4zm6aiWGPP6ONCV')
+var onenet = new OneNet('sygzFeioL=G6fSw1LBzbr1qB76M=', 'zVGRcKzIE7MA7Oxz')
 
-// onenet.registerDevice({sn: '2015031401421', title: 'mydevice'}).then(function(res){
+// onenet.registerDevice({sn: '2017090701421', title: 'mydevice'}).then(function(res){
 //   console.log(res)
 // }).catch(function(err){
 //   console.log(err)
 // })
 
-// onenet.registerAttr(true).then(function(res){
+// onenet.registerAttr({allow_dup: true}).then(function(res){
 //   console.log(res)
 // }).catch(function(err){
 //   console.log(err)
@@ -99,26 +99,32 @@ var onenet = new OneNet('M5qdbUhgEdP4qjUI8hJaNVYFH0A=', 'a4zm6aiWGPP6ONCV')
 //   console.log(err)
 // })
 
-var points = {
-  datastreams: [
-    {
-      id: 'GPSPOSITION',
-      datapoints: [
-        {
-          value: '1,E11332.348383,N2341.334343'
-        }
-      ]
-    }
-  ]
-}
-onenet.addDataPoints('8836458', points).then(function(res){
-  console.log(res)
-}).catch(function(err){
-  console.log(err)
-})
+// var points = {
+//   datastreams: [
+//     {
+//       id: 'GPSPOSITION',
+//       datapoints: [
+//         {
+//           value: '1,E11332.348383,N2341.334343'
+//         }
+//       ]
+//     }
+//   ]
+// }
+// onenet.addDataPoints('8836458', points).then(function(res){
+//   console.log(res)
+// }).catch(function(err){
+//   console.log(err)
+// })
 
 // onenet.getDataPoints('8836458', '').then(function(res){
 //   console.log(res)
 // },function(err){
 //   console.log(err)
 // })
+
+onenet.addTriggers({title: 'test trigger', ds_id: 'gps', url: 'alex.ngrock.cc', type: 'change'}).then(function(res){
+  console.log(res)
+},function(err){
+  console.log(err)
+})

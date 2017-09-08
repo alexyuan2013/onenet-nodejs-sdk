@@ -60,7 +60,7 @@ OneNet.prototype.registerAttr = function (allowDup) {
     headers: {
       'api-key': this.apiKey
     },
-    json: {'allow_dup': allowDup}
+    json: allowDup
   }
   return requestData(options)
 }
@@ -249,6 +249,20 @@ OneNet.prototype.getDataPoints = function (deviceId, urlParams) {
     headers: {
       'api-key': this.apiKey
     }
+  }
+  return requestData(options)
+}
+/**
+ * add triggers
+ */
+OneNet.prototype.addTriggers = function (triggerOption) {
+  const options = {
+    method: 'post',
+    url: 'http://api.heclouds.com/triggers',
+    headers: {
+      'api-key': this.apiKey
+    },
+    json: triggerOption
   }
   return requestData(options)
 }
