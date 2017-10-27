@@ -33,7 +33,8 @@ var requestData = function(options) {
  * @param {string} apiKey 
  * @param {string} registerCode 
  */
-function OneNet(apiKey, registerCode) {
+function OneNet(apiAddr, apiKey, registerCode) {
+  this.apiAddr = apiAddr
   this.apiKey = apiKey
   this.registerCode = registerCode
 }
@@ -44,7 +45,7 @@ function OneNet(apiKey, registerCode) {
 OneNet.prototype.registerDevice = function(registerOption) {
   const options = {
     method: 'post',
-    url: 'http://api.heclouds.com/register_de?register_code=' + this.registerCode,
+    url: this.apiAddr + '/register_de?register_code=' + this.registerCode,
     json: registerOption
   }
   return requestData(options)
@@ -56,7 +57,7 @@ OneNet.prototype.registerDevice = function(registerOption) {
 OneNet.prototype.registerAttr = function (allowDup) {
   const options = {
     method: 'put',
-    url: 'http://api.heclouds.com/register_attr',
+    url: this.apiAddr + '/register_attr',
     headers: {
       'api-key': this.apiKey
     },
@@ -71,7 +72,7 @@ OneNet.prototype.registerAttr = function (allowDup) {
 OneNet.prototype.addDevice = function (deviceOption) {
   const options = {
     method: 'post',
-    url: 'http://api.heclouds.com/devices',
+    url: this.apiAddr + '/devices',
     headers: {
       'api-key': this.apiKey
     },
@@ -85,7 +86,7 @@ OneNet.prototype.addDevice = function (deviceOption) {
 OneNet.prototype.updateDeviceInfo = function (deviceId, deviceOption){
   const options = {
     method: 'put',
-    url: 'http://api.heclouds.com/devices/' + deviceId,
+    url: this.apiAddr + '/devices/' + deviceId,
     headers: {
       'api-key': this.apiKey
     },
@@ -99,7 +100,7 @@ OneNet.prototype.updateDeviceInfo = function (deviceId, deviceOption){
 OneNet.prototype.getOneDeviceInfo = function (deviceId) {
   const options = {
     method: 'get',
-    url: 'http://api.heclouds.com/devices/' + deviceId,
+    url: this.apiAddr + '/devices/' + deviceId,
     headers: {
       'api-key': this.apiKey
     }
@@ -112,7 +113,7 @@ OneNet.prototype.getOneDeviceInfo = function (deviceId) {
 OneNet.prototype.getDevicesInfo = function (urlParams) {
   const options = {
     method: 'get',
-    url: 'http://api.heclouds.com/devices?' + urlParams,
+    url: this.apiAddr + '/devices?' + urlParams,
     headers: {
       'api-key': this.apiKey
     }
@@ -125,7 +126,7 @@ OneNet.prototype.getDevicesInfo = function (urlParams) {
 OneNet.prototype.getDevicesStatus = function (deviceIds) {
   const options = {
     method: 'get',
-    url: 'http://api.heclouds.com/devices/status?devIds=' + deviceIds,
+    url: this.apiAddr + '/devices/status?devIds=' + deviceIds,
     headers: {
       'api-key': this.apiKey
     }
@@ -138,7 +139,7 @@ OneNet.prototype.getDevicesStatus = function (deviceIds) {
 OneNet.prototype.getDevicesData = function (deviceIds) {
   const options = {
     method: 'get',
-    url: 'http://api.heclouds.com/devices/datapoints?devIds=' + deviceIds,
+    url: this.apiAddr + '/devices/datapoints?devIds=' + deviceIds,
     headers: {
       'api-key': this.apiKey
     }
@@ -151,7 +152,7 @@ OneNet.prototype.getDevicesData = function (deviceIds) {
 OneNet.prototype.deleteDevice = function (deviceId) {
   const options = {
     method: 'delete',
-    url: 'http://api.heclouds.com/devices/' + deviceId,
+    url: this.apiAddr + '/devices/' + deviceId,
     headers: {
       'api-key': this.apiKey
     }
@@ -164,7 +165,7 @@ OneNet.prototype.deleteDevice = function (deviceId) {
 OneNet.prototype.addDataStream = function (deviceId, dataStreamOption) {
   const options = {
     method: 'post',
-    url: 'http://api.heclouds.com/devices/' + deviceId + '/datastreams',
+    url: this.apiAddr + '/devices/' + deviceId + '/datastreams',
     headers: {
       'api-key': this.apiKey
     },
@@ -178,7 +179,7 @@ OneNet.prototype.addDataStream = function (deviceId, dataStreamOption) {
 OneNet.prototype.updateDataStreamInfo = function (deviceId, dataStreamId, infoOption) {
   const options = {
     method: 'put',
-    url: 'http://api.heclouds.com/devices/' + deviceId + '/datastreams/' + dataStreamId,
+    url: this.apiAddr + '/devices/' + deviceId + '/datastreams/' + dataStreamId,
     headers: {
       'api-key': this.apiKey
     },
@@ -192,7 +193,7 @@ OneNet.prototype.updateDataStreamInfo = function (deviceId, dataStreamId, infoOp
 OneNet.prototype.getOneDataStream = function (deviceId, dataStreamId) {
   const options = {
     method: 'get',
-    url: 'http://api.heclouds.com/devices/' + deviceId + '/datastreams/' + dataStreamId,
+    url: this.apiAddr + '/devices/' + deviceId + '/datastreams/' + dataStreamId,
     headers: {
       'api-key': this.apiKey
     }
@@ -205,7 +206,7 @@ OneNet.prototype.getOneDataStream = function (deviceId, dataStreamId) {
 OneNet.prototype.getDataStreams = function (deviceId, dataStreamIds) {
   const options = {
     method: 'get',
-    url: 'http://api.heclouds.com/devices/' + deviceId + '/datastreams/?datastream_ids=' + dataStreamIds,
+    url: this.apiAddr + '/devices/' + deviceId + '/datastreams/?datastream_ids=' + dataStreamIds,
     headers: {
       'api-key': this.apiKey
     }
@@ -218,7 +219,7 @@ OneNet.prototype.getDataStreams = function (deviceId, dataStreamIds) {
 OneNet.prototype.deleteDataStream = function (deviceId, dataStreamId) {
   const options = {
     method: 'delete',
-    url: 'http://api.heclouds.com/devices/' + deviceId + '/datastreams/' + dataStreamId,
+    url: this.apiAddr + '/devices/' + deviceId + '/datastreams/' + dataStreamId,
     headers: {
       'api-key': this.apiKey
     }
@@ -231,7 +232,7 @@ OneNet.prototype.deleteDataStream = function (deviceId, dataStreamId) {
 OneNet.prototype.addDataPoints = function(deviceId, pointsJson) {
   const options = {
     method: 'post',
-    url: 'http://api.heclouds.com/devices/' + deviceId + '/datapoints',
+    url: this.apiAddr + '/devices/' + deviceId + '/datapoints',
     headers: {
       'api-key': this.apiKey
     },
@@ -245,7 +246,7 @@ OneNet.prototype.addDataPoints = function(deviceId, pointsJson) {
 OneNet.prototype.getDataPoints = function (deviceId, urlParams) {
   const options = {
     method: 'get',
-    url: 'http://api.heclouds.com/devices/' + deviceId + '/datapoints?' + urlParams,
+    url: this.apiAddr + '/devices/' + deviceId + '/datapoints?' + urlParams,
     headers: {
       'api-key': this.apiKey
     }
@@ -258,7 +259,7 @@ OneNet.prototype.getDataPoints = function (deviceId, urlParams) {
 OneNet.prototype.addTriggers = function (triggerOption) {
   const options = {
     method: 'post',
-    url: 'http://api.heclouds.com/triggers',
+    url: this.apiAddr + '/triggers',
     headers: {
       'api-key': this.apiKey
     },
