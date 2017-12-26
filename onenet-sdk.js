@@ -34,7 +34,7 @@ var requestData = function(options) {
  * @param {string} registerCode 
  */
 function OneNet(apiAddr, apiKey, registerCode) {
-  this.apiAddr = apiAddr
+  this.apiAddr = apiAddr || 'http://api.heclouds.com'
   this.apiKey = apiKey
   this.registerCode = registerCode
 }
@@ -264,6 +264,109 @@ OneNet.prototype.addTriggers = function (triggerOption) {
       'api-key': this.apiKey
     },
     json: triggerOption
+  }
+  return requestData(options)
+}
+/**
+ * read api for nbiot device
+ * @param {Object} readOptions 
+ */
+OneNet.prototype.nbiotRead = function (readOptions) {
+  var params = []
+  for (let key in readOptions) {
+    params.push(key + '=' + readOptions[key])
+  }
+  params = params.join('&')
+  const options = {
+    method: 'get',
+    url: this.apiAddr + '/nbiot?' + params,
+    headers: {
+      'api-key': this.apiKey
+    }
+  }
+  return requestData(options)
+}
+
+/**
+ * write api for nbiot device
+ * @param {Object} readOptions 
+ */
+OneNet.prototype.nbiotWrite = function (writeOptions, writeData) {
+  var params = []
+  for (let key in writeOptions) {
+    params.push(key + '=' + writeOptions[key])
+  }
+  params = params.join('&')
+  const options = {
+    method: 'post',
+    url: this.apiAddr + '/nbiot?' + params,
+    headers: {
+      'api-key': this.apiKey,
+      'Content-Type': 'application/json'
+    },
+    json: writeData
+  }
+  return requestData(options)
+}
+
+/**
+ * execute api for nbiot device
+ * @param {Object} readOptions 
+ */
+OneNet.prototype.nbiotExecute = function (executeOptions, executeData) {
+  var params = []
+  for (let key in executeOptions) {
+    params.push(key + '=' + executeOptions[key])
+  }
+  params = params.join('&')
+  const options = {
+    method: 'post',
+    url: this.apiAddr + '/nbiot/execute?' + params,
+    headers: {
+      'api-key': this.apiKey,
+      'Content-Type': 'application/json'
+    },
+    json: executeData
+  }
+  return requestData(options)
+}
+
+/**
+ * resources api for nbiot device
+ * @param {Object} readOptions 
+ */
+OneNet.prototype.nbiotResources = function (resourcesOptions) {
+  var params = []
+  for (let key in resourcesOptions) {
+    params.push(key + '=' + resourcesOptions[key])
+  }
+  params = params.join('&')
+  const options = {
+    method: 'get',
+    url: this.apiAddr + '/nbiot/resources?' + params,
+    headers: {
+      'api-key': this.apiKey
+    }
+  }
+  return requestData(options)
+}
+
+/**
+ * resources api for nbiot device
+ * @param {Object} readOptions 
+ */
+OneNet.prototype.nbiotObserve = function (observeOptions) {
+  var params = []
+  for (let key in observeOptions) {
+    params.push(key + '=' + observeOptions[key])
+  }
+  params = params.join('&')
+  const options = {
+    method: 'post',
+    url: this.apiAddr + '/nbiot/observe?' + params,
+    headers: {
+      'api-key': this.apiKey
+    }
   }
   return requestData(options)
 }
